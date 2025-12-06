@@ -30,8 +30,8 @@ public class Player extends Entidade{
     }
     
     public void setValoresPadrao(){
-        mundoX = gp.tamanhoPadrao * 10;
-        mundoY = gp.tamanhoPadrao * 15;
+        mundoX = gp.tamanhoPadrao * 11;
+        mundoY = gp.tamanhoPadrao * 10;
         speed = 4;
         direcao = "baixo";
     }

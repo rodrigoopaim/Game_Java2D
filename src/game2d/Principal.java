@@ -19,6 +19,7 @@ public class Principal {
         janela.setLocationRelativeTo(null);
         janela.setVisible(true);
         
+    painel.setupGame();
         painel.startGameThread();
     }
     
