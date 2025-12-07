@@ -15,6 +15,7 @@ public class Player extends Entidade{
     GerenciadorTeclado teclado;
     
     public final int telaX, telaY;
+    int temChave = 0;
 
     public Player(GamePainel gp, GerenciadorTeclado teclado) {
         this.gp = gp;
@@ -24,6 +25,8 @@ public class Player extends Entidade{
         telaY = gp.telaHeight/2-(gp.tamanhoPadrao/2);
         
         areaSolida = new Rectangle(9, 21, 30, 24);
+        areaSolidaPadraoX = areaSolida.x;
+        areaSolidaPadraoY = areaSolida.y;
         
         setValoresPadrao();
         getPlayerImage();
@@ -70,6 +73,10 @@ public class Player extends Entidade{
             colisaoON = false;
             gp.checarC.checarTile(this);
             
+            //CHECAR COLISÃO COM O OBJETO
+            int objIndex = gp.checarC.checarObjeto(this, true);
+            pegarObjeto(objIndex);
+            
             //SE A COLISÃO FOR FALSA O PLAYER PODE SE MEXER
             if(colisaoON==false){
                 switch (direcao) {
@@ -107,6 +114,31 @@ public class Player extends Entidade{
             spriteNum=1;
         }
     }
+    
+    public void pegarObjeto(int i){
+        if(i != 999){
+            String nomeObjeto = gp.obj[i].nome;
+            
+            switch (nomeObjeto) {
+                case "Chave":
+                    temChave++;
+                    gp.obj[i] = null;
+                    break;
+                case "Porta":
+                    if(temChave > 0){
+                        gp.obj[i] = null;
+                        temChave--;
+                    }
+                    break;
+                case "Bau":
+                    
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+        }
+    }
+    
     public void desenhar(Graphics2D g2){
         //g2.setColor(Color.white);
         //g2.fillRect(x, y, gp.tamanhoPadrao, gp.tamanhoPadrao);

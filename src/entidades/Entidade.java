@@ -15,5 +15,6 @@ public class Entidade {
     public int spriteNum = 1;
     
     public Rectangle areaSolida;
+    public int areaSolidaPadraoX, areaSolidaPadraoY;
     public boolean colisaoON = false;
 }

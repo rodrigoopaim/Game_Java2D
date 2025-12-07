@@ -59,4 +59,74 @@ public class ChecagemColisao {
                 throw new AssertionError();
         }
     }
+    public int checarObjeto(Entidade entidade, boolean player){
+        int index = 999;
+        
+        for(int i=0; i<gp.obj.length; i++){
+            if(gp.obj[i] != null){
+                //Pegar a posição da area solida da entidade
+                entidade.areaSolida.x = entidade.mundoX + entidade.areaSolida.x;
+                entidade.areaSolida.y = entidade.mundoY + entidade.areaSolida.y;
+                
+                //Pegar a posição da area solida do objeto                
+                gp.obj[i].areaSolida.x = gp.obj[i].mundoX + gp.obj[i].areaSolida.x;
+                gp.obj[i].areaSolida.y = gp.obj[i].mundoY + gp.obj[i].areaSolida.y;
+                
+                switch (entidade.direcao) {
+                    case "cima":
+                        entidade.areaSolida.y -= entidade.speed;
+                        if(entidade.areaSolida.intersects(gp.obj[i].areaSolida)) {
+                            if(gp.obj[i].colisao == true){
+                                entidade.colisaoON = true;
+                            }
+                            if(player == true){
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "baixo":
+                        entidade.areaSolida.y += entidade.speed;
+                        if(entidade.areaSolida.intersects(gp.obj[i].areaSolida)) {
+                            if(gp.obj[i].colisao == true){
+                                entidade.colisaoON = true;
+                            }
+                            if(player == true){
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "esquerda":
+                        entidade.areaSolida.x -= entidade.speed;
+                        if(entidade.areaSolida.intersects(gp.obj[i].areaSolida)) {
+                            if(gp.obj[i].colisao == true){
+                                entidade.colisaoON = true;
+                            }
+                            if(player == true){
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "direita":
+                        entidade.areaSolida.x += entidade.speed;
+                        if(entidade.areaSolida.intersects(gp.obj[i].areaSolida)) {
+                            if(gp.obj[i].colisao == true){
+                                entidade.colisaoON = true;
+                            }
+                            if(player == true){
+                                index = i;
+                            }
+                        }
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+                entidade.areaSolida.x = entidade.areaSolidaPadraoX;
+                entidade.areaSolida.y = entidade.areaSolidaPadraoY;
+                gp.obj[i].areaSolida.x = gp.obj[i].areaSolidaPadraoX;
+                gp.obj[i].areaSolida.y = gp.obj[i].areaSolidaPadraoY;
+            }
+        }
+        
+        return index;
+    }
 }

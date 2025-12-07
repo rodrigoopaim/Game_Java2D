@@ -10,5 +10,7 @@ public class ObjPorta extends SuperObjeto{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        colisao = true;
+        
     }
 }
